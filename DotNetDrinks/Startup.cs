@@ -29,7 +29,7 @@ namespace DotNetDrinks
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection"))); 
+                    Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
@@ -40,6 +40,8 @@ namespace DotNetDrinks
 
             services.AddControllersWithViews();
 
+            // Enable Swagger API documentation
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,6 +67,13 @@ namespace DotNetDrinks
             app.UseAuthorization();
 
             app.UseSession();
+
+            // Enable Swagger UI for API documentation
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Category API V1");
+            });
 
             app.UseEndpoints(endpoints =>
             {

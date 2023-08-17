@@ -18,6 +18,10 @@ namespace DotNetDrinks.Controllers
             _logger = logger;
         }
 
+        public IActionResult About()
+        {
+            return View();
+        }
         public IActionResult Index()
         {
             return View();
